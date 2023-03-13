@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(nullable = false)
@@ -80,9 +80,10 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-        name="users"
-        joinColumns={@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}
-    )
+        name="users",
+        joinColumns={@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
+        
+    
      
 
     
