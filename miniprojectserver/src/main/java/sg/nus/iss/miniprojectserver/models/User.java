@@ -1,4 +1,7 @@
 package sg.nus.iss.miniprojectserver.models;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -80,8 +83,10 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
-        name="users",
-        joinColumns={@JoinColumn(name = "USER_ID", referencedColumnName = "ID")})
+        name="users_roles",
+        joinColumns={@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+        inverseJoinColumns = {@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+        private List<Roles> roles = new ArrayList<>();
         
     
      
