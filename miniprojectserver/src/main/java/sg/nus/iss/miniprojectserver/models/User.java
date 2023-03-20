@@ -87,6 +87,14 @@ public class User {
         joinColumns={@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
         inverseJoinColumns = {@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
         private List<Roles> roles = new ArrayList<>();
+
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
         
     
      

@@ -7,8 +7,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataTransfer { //helps transfer data between different layers of application,contains fields that need transfer
+public class DataTransfer { //helps transfer data between different layers of application,contains fields that need transfer, makes it easier to apply spring security
+
+    @NotEmpty //makes mandatory field, may remove when angular forms validation is applied, most likely keeping for the sake of security
+    //client side validation in compliance with spring security recommendations
     private Long id;
+
     @NotEmpty
     private String firstName;
 
