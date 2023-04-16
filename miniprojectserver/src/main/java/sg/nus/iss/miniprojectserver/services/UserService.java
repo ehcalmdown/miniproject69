@@ -15,6 +15,14 @@ public class UserService implements UserFunctions{
     private UserRepo userRepo;
     private RolesRepo rolesRepo;
     private PasswordEncoder pwEncoder;
+
+    public UserService(UserRepo userRepo,
+    RolesRepo roleRepo,
+    PasswordEncoder passwordEncoder) {
+this.userRepo = userRepo;
+this.rolesRepo= rolesRepo;
+this.pwEncoder = pwEncoder;
+}
     
     @Override
     public List<DataTransfer> findAllUsers() {
