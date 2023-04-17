@@ -1,9 +1,9 @@
-package sg.nus.iss.miniprojectserver.services;
+package sg.nus.iss.miniprojectserver.Security.services;
 
 import java.util.List;
 
-import sg.nus.iss.miniprojectserver.models.DataTransfer;
-import sg.nus.iss.miniprojectserver.models.User;
+import sg.nus.iss.miniprojectserver.Security.models.DataTransfer;
+import sg.nus.iss.miniprojectserver.Security.models.User;
 
 public interface UserFunctions {
     List<DataTransfer> findAllUsers();

@@ -1,14 +1,14 @@
-package sg.nus.iss.miniprojectserver.services;
+package sg.nus.iss.miniprojectserver.Security.services;
 
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import sg.nus.iss.miniprojectserver.models.DataTransfer;
-import sg.nus.iss.miniprojectserver.models.User;
-import sg.nus.iss.miniprojectserver.repositories.RolesRepo;
-import sg.nus.iss.miniprojectserver.repositories.UserRepo;
+import sg.nus.iss.miniprojectserver.Security.models.DataTransfer;
+import sg.nus.iss.miniprojectserver.Security.models.User;
+import sg.nus.iss.miniprojectserver.Security.repositories.RolesRepo;
+import sg.nus.iss.miniprojectserver.Security.repositories.UserRepo;
 
 @Service
 public class UserService implements UserFunctions{

@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.models;
+package sg.nus.iss.miniprojectserver.Security.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.services;
+package sg.nus.iss.miniprojectserver.Security.services;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import sg.nus.iss.miniprojectserver.repositories.TokenRepo;
+import sg.nus.iss.miniprojectserver.Security.repositories.TokenRepo;
 
 @Service
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.configs;
+package sg.nus.iss.miniprojectserver.Security.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import lombok.RequiredArgsConstructor;
-import sg.nus.iss.miniprojectserver.repositories.UserRepo;
+import sg.nus.iss.miniprojectserver.Security.repositories.UserRepo;
 
 @Configuration
 @RequiredArgsConstructor

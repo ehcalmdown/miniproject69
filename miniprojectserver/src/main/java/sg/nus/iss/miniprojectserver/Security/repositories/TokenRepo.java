@@ -1,8 +1,8 @@
-package sg.nus.iss.miniprojectserver.repositories;
+package sg.nus.iss.miniprojectserver.Security.repositories;
 
 import org.springframework.data.jpa.repository.Query;
 
-import sg.nus.iss.miniprojectserver.models.Token;
+import sg.nus.iss.miniprojectserver.Security.models.Token;
 
 import java.util.Optional;
 import java.util.List;

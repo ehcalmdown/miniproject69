@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.services;
+package sg.nus.iss.miniprojectserver.Security.services;
 
 import org.springframework.stereotype.Service;
 
