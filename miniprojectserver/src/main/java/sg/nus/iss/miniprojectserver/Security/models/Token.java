@@ -1,11 +1,12 @@
 package sg.nus.iss.miniprojectserver.Security.models;
 
-import org.springframework.security.oauth2.core.OAuth2AccessToken.TokenType;
-
+import sg.nus.iss.miniprojectserver.Security.configs.TokenType;
+import sg.nus.iss.miniprojectserver.Security.models.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
