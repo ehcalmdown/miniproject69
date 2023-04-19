@@ -7,16 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recipe {
-    private Long id;
-    private String title;
-    private String image;
-    private String cuisine;
-    private List<String> ingredients;
-    private String instructions;
-    
+public class RecipeResponse {
+    private List<Recipe> results;
 }

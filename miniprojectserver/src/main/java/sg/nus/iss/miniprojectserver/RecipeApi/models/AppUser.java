@@ -11,12 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recipe {
+public class AppUser {
     private Long id;
-    private String title;
-    private String image;
-    private String cuisine;
-    private List<String> ingredients;
-    private String instructions;
+    private String username;
+    private String password;
+    private List<UserHistory> searchHistory;
     
 }
