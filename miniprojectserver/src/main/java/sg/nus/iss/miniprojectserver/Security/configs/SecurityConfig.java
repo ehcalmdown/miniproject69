@@ -27,14 +27,14 @@ public class SecurityConfig {
     http
         .csrf()
         .disable()
-        .authorizeHttpRequests()
+        .authorizeHttpRequests()//delete if this causes issues with front end
         .requestMatchers("/api/v1/auth/**")
           .permitAll()
         .anyRequest()
           .authenticated()
         .and()
           .sessionManagement()
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//delete if this causes issues with front end
         .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

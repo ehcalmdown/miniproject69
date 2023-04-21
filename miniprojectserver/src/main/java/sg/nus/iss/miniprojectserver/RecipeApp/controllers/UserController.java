@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.RecipeApi.controllers;
+package sg.nus.iss.miniprojectserver.RecipeApp.controllers;
 
 import java.util.List;
 
@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.Recipe;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.UserHistory;
-import sg.nus.iss.miniprojectserver.RecipeApi.services.UserService;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.Recipe;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.UserHistory;
+import sg.nus.iss.miniprojectserver.RecipeApp.services.UserService;
+
 
 @RestController
 @RequiredArgsConstructor

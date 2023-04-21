@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,9 +19,7 @@ public class RegRequest {
 
     
     
-    // public RegRequest() {
-        
-    // }
+
 
     
     // public RegRequest(String email, String password, String role, String name) {

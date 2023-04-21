@@ -1,5 +1,6 @@
 package sg.nus.iss.miniprojectserver.Security.models;
 
+
 public enum Roles{
     USER,
     ADMIN

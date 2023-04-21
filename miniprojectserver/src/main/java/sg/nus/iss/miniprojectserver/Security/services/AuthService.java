@@ -13,14 +13,10 @@ import sg.nus.iss.miniprojectserver.Security.models.User;
 import sg.nus.iss.miniprojectserver.Security.repositories.TokenRepo;
 import sg.nus.iss.miniprojectserver.Security.repositories.UserRepo;
 import sg.nus.iss.miniprojectserver.Security.configs.TokenType;
-import sg.nus.iss.miniprojectserver.Security.services.JwtService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -82,7 +78,7 @@ public class AuthService {
     tokenRepository.save(token);
   }
 
-  private void revokeAllUserTokens(User user) {
+  private void revokeAllUserTokens(User user) {//might be a bit wonky, please modify usertokens area if needed
     var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
     if (validUserTokens.isEmpty())
       return;
@@ -93,7 +89,7 @@ public class AuthService {
     tokenRepository.saveAll(validUserTokens);
   }
 
-  public void refreshToken(
+  public void refreshToken(//might remove and hard code tokens if it keeps only working 25% of the time
           HttpServletRequest request,
           HttpServletResponse response
   ) throws IOException {

@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.RecipeApi.services;
+package sg.nus.iss.miniprojectserver.RecipeApp.services;
 
 import java.util.List;
 
@@ -6,20 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import sg.nus.iss.miniprojectserver.RecipeApi.models.Recipe;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.RecipeResponse;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.ResourceNotFoundException;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.UserHistory;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.WinePairingResponse;
-import sg.nus.iss.miniprojectserver.RecipeApi.repositories.UserHistoryRepository;
+import sg.nus.iss.miniprojectserver.RecipeApp.Exceptions.ResourceNotFoundException;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.Recipe;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.RecipeResponse;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.UserHistory;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.WinePairingResponse;
+import sg.nus.iss.miniprojectserver.RecipeApp.repositories.UserHistoryRepo;
+
+
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserHistoryRepository userHistoryRepository;
+    private UserHistoryRepo userHistoryRepo;
 
-    private final String apiKey = "api-key";
+    private final String apiKey = "70c6b7aaaamshff74d5a45a9bf81p14ae31jsn0263850fec91";//apiKey please remember to remove
     private final String apiUrl = "https://api.spoonacular.com";
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -40,24 +42,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserHistory> getUserHistory(Long userId) {
-        return userHistoryRepository.findByUserId(userId);
+        return userHistoryRepo.findByUserId(userId);
     }
 
     @Override
     public UserHistory saveUserHistory(UserHistory userHistory) {
-        return userHistoryRepository.save(userHistory);
+        return userHistoryRepo.save(userHistory);
     }
 
     @Override
 public UserHistory updateUserHistory(Long id, UserHistory updatedUserHistory) {
-    return userHistoryRepository.findById(id)
+    return userHistoryRepo.findById(id)
             .map(existingUserHistory -> {
                 // Update the properties of the existingUserHistory object with the properties from updatedUserHistory
                 existingUserHistory.setCuisine(updatedUserHistory.getCuisine());
                 existingUserHistory.setRecipes(updatedUserHistory.getRecipes());
                 existingUserHistory.setWine(updatedUserHistory.getWine());
                 existingUserHistory.setSearchTime(updatedUserHistory.getSearchTime());
-                return userHistoryRepository.save(existingUserHistory);
+                return userHistoryRepo.save(existingUserHistory);
             })
             .orElseThrow(() -> new ResourceNotFoundException("UserHistory not found with ID: " + id));
 }

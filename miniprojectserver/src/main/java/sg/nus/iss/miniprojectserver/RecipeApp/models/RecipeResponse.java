@@ -1,4 +1,4 @@
-package sg.nus.iss.miniprojectserver.RecipeApi.models;
+package sg.nus.iss.miniprojectserver.RecipeApp.models;
 
 import java.util.List;
 

@@ -1,9 +1,11 @@
-package sg.nus.iss.miniprojectserver.RecipeApi.services;
+package sg.nus.iss.miniprojectserver.RecipeApp.services;
 
 import java.util.List;
 
-import sg.nus.iss.miniprojectserver.RecipeApi.models.Recipe;
-import sg.nus.iss.miniprojectserver.RecipeApi.models.UserHistory;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.Recipe;
+import sg.nus.iss.miniprojectserver.RecipeApp.models.UserHistory;
+
+
 
 public interface UserService {
 
