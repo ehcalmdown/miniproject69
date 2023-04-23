@@ -56,7 +56,7 @@ public class RecipeService implements RecipeServiceData{
 
     @Override
     public List<UserHistory> getUserHistory(Long userId) {
-        return userHistoryRepo.findByUserId(userId);
+        return userHistoryRepo.findByUserInfoId(userId);
     }
 
     @Override

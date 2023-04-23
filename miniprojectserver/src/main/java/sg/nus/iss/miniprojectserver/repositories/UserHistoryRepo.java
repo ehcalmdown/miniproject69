@@ -8,7 +8,6 @@ import sg.nus.iss.miniprojectserver.models.UserHistory;
 
 
 @Repository
-public interface UserHistoryRepo extends JpaRepository<UserHistory, Long>{
-    List<UserHistory> findByUserId(Long userId);
-    
+public interface UserHistoryRepo extends JpaRepository<UserHistory, Long> {
+    List<UserHistory> findByUserInfoId(Long id);
 }

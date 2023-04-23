@@ -7,12 +7,17 @@ import java.util.stream.Collectors;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
+import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Recipe {
@@ -22,19 +27,25 @@ public class Recipe {
     private String title;
     private String image;
     private String cuisine;
+    @ElementCollection
     private List<String> ingredients;
     private String instructions;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_history_id")
+    private UserHistory userHistory;
 
     public Recipe() {
     }
 
-    public Recipe(Long id, String title, String image, String cuisine, List<String> ingredients, String instructions) {
+    public Recipe(Long id, String title, String image, String cuisine, List<String> ingredients, String instructions, UserHistory userHistory) {
         this.id = id;
         this.title = title;
         this.image = image;
         this.cuisine = cuisine;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.userHistory = userHistory;
     }
 
     public Long getId() {
@@ -85,40 +96,48 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public static Recipe create(JsonObject jo) {
+    public JsonObject toJson() {
+        JsonArrayBuilder ingredientsBuilder = Json.createArrayBuilder();
+        for (String ingredient : ingredients) {
+            ingredientsBuilder.add(ingredient);
+        }
+    
+        return Json.createObjectBuilder()
+                .add("id", id)
+                .add("title", title)
+                .add("image", image)
+                .add("cuisine", cuisine)
+                .add("ingredients", ingredientsBuilder)
+                .add("instructions", instructions)
+                .build();
+    }
+    
+    public static Recipe createFromJson(String json) {
+        try (StringReader strReader = new StringReader(json)) {
+            JsonReader jsonReader = Json.createReader(strReader);
+            return createFromJsonObject(jsonReader.readObject());
+        }
+    }
+    
+    public static Recipe createFromJsonObject(JsonObject jsonObject) {
         Recipe recipe = new Recipe();
-        recipe.setId(jo.getJsonNumber("id").longValue());
-        recipe.setTitle(jo.getString("title"));
-        recipe.setImage(jo.getString("image"));
-        recipe.setCuisine(jo.getString("cuisine"));
-        JsonArray ingredientsArray = jo.getJsonArray("ingredients");
+        recipe.setId(jsonObject.getJsonNumber("id").longValue());
+        recipe.setTitle(jsonObject.getString("title"));
+        recipe.setImage(jsonObject.getString("image"));
+        recipe.setCuisine(jsonObject.getString("cuisine"));
+    
+        JsonArray ingredientsArray = jsonObject.getJsonArray("ingredients");
         List<String> ingredientsList = new ArrayList<>();
         for (int i = 0; i < ingredientsArray.size(); i++) {
             ingredientsList.add(ingredientsArray.getString(i));
         }
         recipe.setIngredients(ingredientsList);
-
-        recipe.setInstructions(jo.getString("instructions"));
-
+    
+        recipe.setInstructions(jsonObject.getString("instructions"));
+    
         return recipe;
     }
-
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-            .add("id", id)
-            .add("title", title)
-            .add("image", image)
-            .add("cuisine", cuisine)
-            .add("ingredients", Json.createArrayBuilder(ingredients))
-            .add("instructions", instructions)
-            .build();
-    }
-
-    public static Recipe create(String json) {
-        try (StringReader strReader = new StringReader(json)) {
-            JsonReader jsonReader = Json.createReader(strReader);
-            return create(jsonReader.readObject());
-        }
-    }
+    
+    
 }
 
