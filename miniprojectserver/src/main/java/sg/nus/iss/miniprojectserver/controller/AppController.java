@@ -36,7 +36,7 @@ public class AppController {
         return "not secure yet";
     }
 
-    @PostMapping("/newuser")
+    @PostMapping("/new")
     public String addNewUser(@RequestBody UserInfo userInfo) {
         return recipeService.addUser(userInfo);
     }
@@ -45,6 +45,7 @@ public class AppController {
     private RecipeServiceData recipeServiceData;
 
     @PostMapping("/recipes")
+    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Recipe> getRecipes(@RequestParam String cuisine) {
         return recipeServiceData.findRecipesByCuisine(cuisine);
     }
