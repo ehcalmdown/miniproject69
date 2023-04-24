@@ -3,7 +3,7 @@ package sg.nus.iss.miniprojectserver.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,17 +11,16 @@ import sg.nus.iss.miniprojectserver.exceptions.ResourceNotFoundException;
 import sg.nus.iss.miniprojectserver.models.Recipe;
 import sg.nus.iss.miniprojectserver.models.RecipeResponse;
 import sg.nus.iss.miniprojectserver.models.UserHistory;
-import sg.nus.iss.miniprojectserver.models.UserInfo;
+// import sg.nus.iss.miniprojectserver.models.UserInfo;
 import sg.nus.iss.miniprojectserver.models.WinePairingResponse;
 import sg.nus.iss.miniprojectserver.repositories.UserHistoryRepo;
-import sg.nus.iss.miniprojectserver.repositories.UserInfoRepository;
+// import sg.nus.iss.miniprojectserver.repositories.UserInfoRepository;
 
 
 @Service
 public class RecipeService implements RecipeServiceData{
 
-    @Autowired
-    private UserInfoRepository repository;
+    
 
     @Autowired
     private UserHistoryRepo userHistoryRepo;
@@ -31,14 +30,7 @@ public class RecipeService implements RecipeServiceData{
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     
-    public String addUser(UserInfo userInfo) {
-        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
-        repository.save(userInfo);
-        return "user added to system ";
-    }
 
     @Override
     public List<Recipe> findRecipesByCuisine(String cuisine) {

@@ -18,42 +18,51 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+import lombok.RequiredArgsConstructor;
 import sg.nus.iss.miniprojectserver.services.JwtAuthFilter;
 import sg.nus.iss.miniprojectserver.services.UserInfoUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     @Autowired
-    private JwtAuthFilter authFilter;
+    private final JwtAuthFilter authFilter;
+
+    @Autowired
+    private final AuthenticationEntryPoint authEntryPoint;
 
     @Bean
     //authentication
     public UserDetailsService userDetailsService() {
-
         return new UserInfoUserDetailsService();
     }
+    
 
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.csrf().disable()
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new PublicEndpointsRequestMatcher()).permitAll()
-                .requestMatchers(req -> req.getRequestURI().startsWith("/recipeapp/")).authenticated()
-            )
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authenticationProvider(authenticationProvider())
-            .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-            .build();
-}
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/recipeapp/**","/auth/**").permitAll()
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/recipeapp/**").authenticated()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint)
+                .and()
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -71,6 +80,9 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
+    
+    
 
 }
 

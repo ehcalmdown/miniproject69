@@ -25,8 +25,6 @@ public class AppController {
 
     @Autowired
     private RecipeService recipeService;
-    @Autowired
-    private JwtService jwtService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -36,10 +34,7 @@ public class AppController {
         return "not secure yet";
     }
 
-    @PostMapping("/register")
-    public String addNewUser(@RequestBody UserInfo userInfo) {
-        return recipeService.addUser(userInfo);
-    }
+    
 
     @Autowired
     private RecipeServiceData recipeServiceData;
@@ -71,15 +66,7 @@ public class AppController {
         return ResponseEntity.ok(updatedUserHistory);
 }
 
-    @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
-        } else {
-            throw new UsernameNotFoundException("invalid user request !");
-        }
+    
 
+ }
 
-    }
-}
