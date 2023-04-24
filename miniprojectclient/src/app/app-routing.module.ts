@@ -13,9 +13,9 @@ const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
   { path: 'recipeapp/**', component: RecipeListComponent, canActivate:[AuthGuard], data: { isAdmin: true }},
-  { path: 'recipeapp/recipes', component: RecipeListComponent },
-  { path: 'recipeapp/wine-pairing', component: WinePairingComponent },
-  { path: 'recipeapp/user-history', component: UserHistoryComponent },
+  { path: 'recipeapp/recipes', component: RecipeListComponent, canActivate:[AuthGuard], data: { isAdmin: true }},
+  { path: 'recipeapp/wine-pairing', component: WinePairingComponent, canActivate:[AuthGuard], data: { isAdmin: true } },
+  { path: 'recipeapp/user-history', component: UserHistoryComponent, canActivate:[AuthGuard], data: { isAdmin: true } },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 
 ];
