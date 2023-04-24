@@ -36,7 +36,7 @@ public class AppController {
         return "not secure yet";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/register")
     public String addNewUser(@RequestBody UserInfo userInfo) {
         return recipeService.addUser(userInfo);
     }
