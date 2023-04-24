@@ -30,13 +30,16 @@ import sg.nus.iss.miniprojectserver.services.UserInfoUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
-    private final JwtAuthFilter authFilter;
+    private JwtAuthFilter authFilter;
 
     @Autowired
     private final AuthenticationEntryPoint authEntryPoint;
+
+    // @Autowired
+    // private final AuthenticationProvider authenticationProvider;
 
     @Bean
     //authentication
@@ -44,31 +47,6 @@ public class SecurityConfig {
         return new UserInfoUserDetailsService();
     }
     
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/recipeapp/**","/auth/**").permitAll()
-                .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/recipeapp/**").authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling().authenticationEntryPoint(authEntryPoint)
-                .and()
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
@@ -76,6 +54,30 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeHttpRequests().requestMatchers( "/auth/**",  "/**").permitAll()
+            .and()
+            .authorizeHttpRequests().requestMatchers("/recipeapp/**").authenticated()  
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .exceptionHandling().authenticationEntryPoint(authEntryPoint)
+            .and()
+            .authenticationProvider(authenticationProvider())
+            .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

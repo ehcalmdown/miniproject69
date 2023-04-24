@@ -1,34 +1,36 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RecipeSearchComponent } from './recipesearch/recipesearch.component';
-import { RecipeListComponent } from './recipelist/recipelist.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
+import { WinePairingComponent } from './components/wine-pairing/wine-pairing.component';
+import { UserHistoryComponent } from './components/user-history/user-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecipeSearchComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
     RecipeListComponent,
+    WinePairingComponent,
+    UserHistoryComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
+    NgbModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatListModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
-
+export class AppModule { }

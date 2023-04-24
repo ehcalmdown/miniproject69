@@ -1,18 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RecipeSearchComponent } from './recipesearch/recipesearch.component';
-import { RecipeListComponent } from './recipelist/recipelist.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
+import { AuthGuard } from './services/auth.guard';
+import { WinePairingComponent } from './components/wine-pairing/wine-pairing.component';
+import { UserHistoryComponent } from './components/user-history/user-history.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/recipe-search', pathMatch: 'full' },
-  { path: 'recipe-search', component: RecipeSearchComponent },
-  { path: 'recipe-list', component: RecipeListComponent },
-  { path: '', redirectTo: '/recipe-search', pathMatch: 'full' },
-  // Add other routes here as needed
+  { path: '', component: HomeComponent},
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/register', component: RegisterComponent },
+  { path: 'recipeapp/**', component: RecipeListComponent, canActivate:[AuthGuard], data: { isAdmin: true }},
+  { path: 'recipeapp/recipes', component: RecipeListComponent },
+  { path: 'recipeapp/wine-pairing', component: WinePairingComponent },
+  { path: 'recipeapp/user-history', component: UserHistoryComponent },
+  { path: '**', redirectTo: '/', pathMatch: 'full' },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

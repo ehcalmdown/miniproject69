@@ -30,7 +30,7 @@ public class AuthController {
         return userInfoService.addUser(userInfo);
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authentication.isAuthenticated()) {

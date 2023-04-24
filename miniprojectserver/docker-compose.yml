@@ -1,61 +1,61 @@
-version: "3.9"
+# version: "3.9"
 
-services:
-  mysql:
-    container_name: mysql
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: 736334
-      MYSQL_DATABASE: minitest69
-      MYSQL_USER: test69
-      MYSQL_PASSWORD: 736334
-    volumes:
-      - mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    networks:
-      - mysql
-    restart: unless-stopped
+# services:
+#   mysql:
+#     container_name: mysql
+#     image: mysql:latest
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 736334
+#       MYSQL_DATABASE: minitest69
+#       MYSQL_USER: test69
+#       MYSQL_PASSWORD: 736334
+#     volumes:
+#       - mysql:/var/lib/mysql
+#     ports:
+#       - "3306:3306"
+#     networks:
+#       - mysql
+#     restart: unless-stopped
 
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: username
-      PMA_PASSWORD: password
-    ports:
-      - "8080:80"
-    networks:
-      - mysql
-    restart: unless-stopped
+#   phpmyadmin:
+#     container_name: phpmyadmin
+#     image: phpmyadmin/phpmyadmin
+#     environment:
+#       PMA_HOST: mysql
+#       PMA_USER: username
+#       PMA_PASSWORD: password
+#     ports:
+#       - "8080:80"
+#     networks:
+#       - mysql
+#     restart: unless-stopped
 
-  springboot:
-    container_name: springboot
-    build:
-      context: ./miniprojectserver
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - mysql
-    restart: unless-stopped
-    depends_on:
-      - mysql
+#   springboot:
+#     container_name: springboot
+#     build:
+#       context: ./miniprojectserver
+#       dockerfile: Dockerfile
+#     ports:
+#       - "8080:8080"
+#     networks:
+#       - mysql
+#     restart: unless-stopped
+#     depends_on:
+#       - mysql
 
-  angular:
-    container_name: angular
-    build:
-      context: ./miniprojectclient
-      dockerfile: Dockerfile
-    ports:
-      - "4200:4200"
-    restart: unless-stopped
+#   angular:
+#     container_name: angular
+#     build:
+#       context: ./miniprojectclient
+#       dockerfile: Dockerfile
+#     ports:
+#       - "4200:4200"
+#     restart: unless-stopped
 
-networks:
-  mysql:
-    driver: bridge
+# networks:
+#   mysql:
+#     driver: bridge
 
-volumes:
-  mysql:
-  phpmyadmin:
+# volumes:
+#   mysql:
+#   phpmyadmin:

@@ -29,18 +29,11 @@ public class AppController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/test")
-    public String test() {
-        return "not secure yet";
-    }
-
     
-
     @Autowired
     private RecipeServiceData recipeServiceData;
 
     @PostMapping("/recipes")
-    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Recipe> getRecipes(@RequestParam String cuisine) {
         return recipeServiceData.findRecipesByCuisine(cuisine);
     }

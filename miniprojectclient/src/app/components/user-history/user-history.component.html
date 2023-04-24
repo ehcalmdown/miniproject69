@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>User History</h2>
+    <ul class="list-group">
+      <li *ngFor="let history of userHistory" class="list-group-item">
+        User ID: {{ history.userId }} - Recipe ID: {{ history.recipeId }}
+      </li>
+    </ul>
+  </div>
+  
