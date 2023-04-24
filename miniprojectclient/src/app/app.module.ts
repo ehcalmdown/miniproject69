@@ -12,6 +12,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { WinePairingComponent } from './components/wine-pairing/wine-pairing.component';
 import { UserHistoryComponent } from './components/user-history/user-history.component';
+import { SuccessComponent } from './components/success/success.component';
+import { CancelComponent } from './components/cancel/cancel.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { UserHistoryComponent } from './components/user-history/user-history.com
     RecipeListComponent,
     WinePairingComponent,
     UserHistoryComponent,
+    SuccessComponent,
+    
     
   ],
   imports: [
@@ -29,6 +33,7 @@ import { UserHistoryComponent } from './components/user-history/user-history.com
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
+    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
